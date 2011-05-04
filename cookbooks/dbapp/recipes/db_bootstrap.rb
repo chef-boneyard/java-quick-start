@@ -21,7 +21,13 @@
 # THIS RECIPE IS DESTRUCTIVE.  It will drop all existing database tables and reload them.
 
 app = data_bag_item("apps", "dbapp")
-dbm = search(:node, "run_list:role\\[#{app["database_master_role"][0]}\\] AND app_environment:#{node[:app_environment]}").first
+
+if node.run_list.roles.include?(app["database_master_role"][0])
+  dbm = node
+else
+  dbm = search(:node, "run_list:role\\[#{app["database_master_role"][0]}\\] AND app_environment:#{node[:app_environment]}").first
+end
+
 db = app['databases'][node.app_environment]
 
 cookbook_file "/tmp/schema.sql" do
