@@ -4,7 +4,7 @@ This guide describes how to build a Java web application stack using Chef cookbo
 
 ***Note:** At this time, the steps described above have only been tested on the identified platform(s).  Opscode has not researched and does not support alternative steps that may lead to successful completion on other platforms.  Platform(s) supported by this guide may change over time, so please do check back for updates.  If you'd like to undertake this guide on an alternate platform, you may desire to turn to open source community resources for support assistance.*
 
-You can watch a short screencast of this guide [here](http://blip.tv/file/4708408):
+You can watch a short screencast of this guide [here](http://blip.tv/file/4708408).
 
 <embed src="http://blip.tv/play/hMAggqC_OQA" type="application/x-shockwave-flash" width="600" height="480" allowscriptaccess="always" allowfullscreen="true"></embed>
 
