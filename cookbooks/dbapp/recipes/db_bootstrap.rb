@@ -25,10 +25,10 @@ app = data_bag_item("apps", "dbapp")
 if node.run_list.roles.include?(app["database_master_role"][0])
   dbm = node
 else
-  dbm = search(:node, "run_list:role\\[#{app["database_master_role"][0]}\\] AND app_environment:#{node[:app_environment]}").first
+  dbm = search(:node, "role:#{app["database_master_role"][0]} AND chef_environment:#{node.chef_environment}").first
 end
 
-db = app['databases'][node.app_environment]
+db = app['databases'][node.chef_environment]
 
 cookbook_file "/tmp/schema.sql" do
   source "schema.sql"

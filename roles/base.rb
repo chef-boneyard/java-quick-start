@@ -4,6 +4,16 @@ run_list(
   "recipe[apt]",
   "recipe[git]",
   "recipe[build-essential]",
-  "recipe[ruby]",
-  "recipe[users::sysadmins]"
+  "recipe[zsh]",
+  "recipe[users::sysadmins]",
+  "recipe[sudo]"
 )
+override_attributes(
+  :authorization => {
+    :sudo => {
+      :users => ["ubuntu"],
+      :passwordless => true
+    }
+  }
+)
+

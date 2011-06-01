@@ -13,13 +13,13 @@
       "dbapp_database_master"
       ],
     "war": {
-      "production": {
+      "_default": {
         "source": "http://chef-quick-starts.s3.amazonaws.com/dbapp.war",
         "checksum": "b05b0e6e652a7e2fa1aa0c0b56e72c031f1efabeb6676cbe03b6b337a2b5be9e"
       }
     },
     "databases": {
-      "production": {
+      "_default": {
         "max_active": "100",
         "max_idle": "30",
         "max_wait": "10000",
@@ -32,13 +32,13 @@
       }
     },
     "mysql_root_password": {
-      "production": "mysql_root"
+      "_default": "mysql_root"
     },
     "mysql_debian_password": {
-      "production": "mysql_debian"
+      "_default": "mysql_debian"
     },
     "mysql_repl_password": {
-      "production": "mysql_repl"
+      "_default": "mysql_repl"
     },
     "deploy_to": "/srv/dbapp",
     "owner": "nobody",
