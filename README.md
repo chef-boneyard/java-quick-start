@@ -157,7 +157,7 @@ Launch the entire stack on a single instance.
 
     knife ec2 server create -G default -I ami-7000f019 -f m1.small \
       -S java-quick-start -i ~/.ssh/java-quick-start.pem -x ubuntu \
-      -r 'role[base],role[dbapp_database_master],role[dbapp],recipe[dbapp::db_bootstrap]'
+      -r 'role[base],role[dbapp_database_master],role[dbapp],recipe[dbapp::db_bootstrap],role[dbapp_load_balancer]'
     
 
 Once complete, the instance will be running MySQL and the Java webapp under Tomcat. With only one system, a load balancer is unnecessary.
@@ -200,15 +200,11 @@ Once complete, we'll have four instances running in EC2 with MySQL, Tomcat and h
 Verification
 ----
 
-Knife will output the fully qualified domain name of the instance when the commands complete. If you launched a single instance, you can navigate to port 8080 in your browser to view dbapp.
-
-    http://ec2-xxx-xx-xx-xxx.compute-1.amazonaws.com:8080/
-
-If you launched a multi-instance infrastructure with the load balancer, navigate to the public fully qualified domain name on port 80.
+Knife will output the fully qualified domain name of the instance when the commands complete. Navigate to the public fully qualified domain name on port 80:
 
     http://ec2-xx-xxx-xx-xxx.compute-1.amazonaws.com/
 
-If you launched the multi-instance infrastructure, you can access the haproxy admin interface at:
+You can access the haproxy admin interface at:
 
     http://ec2-xx-xxx-xx-xxx.compute-1.amazonaws.com:22002/
 
@@ -259,7 +255,7 @@ See the [launch cloud instances page](http://wiki.opscode.com/display/chef/Launc
 For people not using cloud at all, but have their own infrastructure and hardware, use the [bootstrap](http://wiki.opscode.com/display/chef/Knife+Bootstrap) knife command. Note that the run-list specification is slightly different. For the first example of the single instance:
 
     knife bootstrap IPADDRESS 
-     -r 'role[base],role[dbapp_database_master],role[dbapp],recipe[dbapp::db_bootstrap]'
+     -r 'role[base],role[dbapp_database_master],role[dbapp],recipe[dbapp::db_bootstrap],role[dbapp_load_balancer]'
 
 See the contextual help for knife bootstrap on the additional options to set for SSH.
 
