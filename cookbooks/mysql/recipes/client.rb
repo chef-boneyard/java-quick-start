@@ -17,38 +17,53 @@
 # limitations under the License.
 #
 
-package "mysql-devel" do
+## Added by Stathy Touloumis as workaround to dependency req's as well as
+## current instability around handling native libs within embedded chef
+## Issue #12510
+## Ticket #COOK-1009
+##
+## Need to verify the block below
+
+#['ruby1.9.1-full', 'ruby1.9.1-dev', 'rubygems'].each do |pkg_name|
+#  pkg = package pkg_name do
+#    action :nothing
+#  end
+
+#  pkg.run_action(:install)
+
+#end
+
+pkg = package "mysql-devel" do
   package_name value_for_platform(
     [ "centos", "redhat", "suse", "fedora"] => { "default" => "mysql-devel" },
     ["debian", "ubuntu"] => { "default" => 'libmysqlclient-dev' },
     "default" => 'libmysqlclient-dev'
   )
-  action :install
+  action :nothing
 end
+pkg.run_action(:install)
 
-package "mysql-client" do
+pkg = package "mysql-client" do
   package_name value_for_platform(
     [ "centos", "redhat", "suse", "fedora"] => { "default" => "mysql" },
     "default" => "mysql-client"
   )
   action :install
 end
+pkg.run_action(:install)
 
-if platform?(%w{debian ubuntu redhat centos fedora suse})
+chef_gem 'mysql'
 
-  package "mysql-ruby" do
-    package_name value_for_platform(
-      [ "centos", "redhat", "suse", "fedora"] => { "default" => "ruby-mysql" },
-      ["debian", "ubuntu"] => { "default" => 'libmysql-ruby' },
-      "default" => 'libmysql-ruby'
-    )
-    action :install
-  end
+#if platform?(%w{debian ubuntu redhat centos fedora suse})
+#
+#  package "mysql-ruby" do
+#    package_name value_for_platform(
+#      [ "centos", "redhat", "suse", "fedora"] => { "default" => "ruby-mysql" },
+#      ["debian", "ubuntu"] => { "default" => 'libmysql-ruby' },
+#      "default" => 'libmysql-ruby'
+#    )
+#    action :install
+#  end
 
-else
-
-  gem_package "mysql" do
-    action :install
-  end
-
-end
+#else
+#end
