@@ -17,38 +17,24 @@
 # limitations under the License.
 #
 
-package "mysql-devel" do
+pkg = package "mysql-devel" do
   package_name value_for_platform(
     [ "centos", "redhat", "suse", "fedora"] => { "default" => "mysql-devel" },
     ["debian", "ubuntu"] => { "default" => 'libmysqlclient-dev' },
     "default" => 'libmysqlclient-dev'
   )
-  action :install
+  action :nothing
 end
+pkg.run_action(:install)
 
-package "mysql-client" do
+pkg = package "mysql-client" do
   package_name value_for_platform(
     [ "centos", "redhat", "suse", "fedora"] => { "default" => "mysql" },
     "default" => "mysql-client"
   )
   action :install
 end
+pkg.run_action(:install)
 
-if platform?(%w{debian ubuntu redhat centos fedora suse})
+chef_gem 'mysql'
 
-  package "mysql-ruby" do
-    package_name value_for_platform(
-      [ "centos", "redhat", "suse", "fedora"] => { "default" => "ruby-mysql" },
-      ["debian", "ubuntu"] => { "default" => 'libmysql-ruby' },
-      "default" => 'libmysql-ruby'
-    )
-    action :install
-  end
-
-else
-
-  gem_package "mysql" do
-    action :install
-  end
-
-end
