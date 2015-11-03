@@ -1,3 +1,6 @@
+### DEPRECATED
+**This guide repository has not been updated and is no longer correct for current Chef releases. It should only be used for historical context at this point.**
+
 This guide describes how to build a Java web application stack using Chef cookbooks available from the [Cookbooks Community Site](http://cookbooks.opscode.com) and the Opscode Platform. It assumes you followed the [Getting Started Guide](http://help.opscode.com/faqs/start/how-to-get-started) and have Chef installed.  
 
 *This guide uses Ubuntu 10.04 on Amazon AWS EC2 with Chef 0.10.0.*
